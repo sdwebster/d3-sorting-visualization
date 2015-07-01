@@ -1,0 +1,15 @@
+body {
+  margin-right = 2px
+
+}
+
+p {
+  font-family: "Arial"
+}
+
+.bar {
+  margin-right: 4px;
+  display: inline-block;
+          width:  20px;
+          background-color: teal
+}
