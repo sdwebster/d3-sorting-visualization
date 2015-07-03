@@ -1,8 +1,4 @@
 
-var svg = d3.select("body")
-  .append("svg")
-  .attr("width", 500)
-  .attr("height", 120);
 
 d3.select("body").append("p").text("Woah");
 var dataset = [];
@@ -21,3 +17,27 @@ d3.select("body").selectAll("div")
   .style('opacity', function(d){
       return d / 100;
   });
+
+var svgW = 200;
+var svgH = 800;
+var barPadding = 2;
+
+var svg = d3.select("body")
+  .append("svg")
+  .attr("width", svgW)
+  .attr("height", svgH);
+
+svg.selectAll("rect")
+  .data(dataset)
+  .enter()
+  .append("rect")
+  .attr("x", function(d, i){
+    return (i * svgW / dataset.length);
+  })
+  .attr("y", function(d){
+    return 0;
+  })
+  .attr("width", svgW / dataset.length - barPadding)
+  .attr("height", function(d){
+    return d;
+    });
