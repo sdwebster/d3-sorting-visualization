@@ -18,14 +18,16 @@ d3.select("body").selectAll("div")
       return d / 100;
   });
 
-var svgW = 200;
-var svgH = 800;
+var svgW = 800;
+var svgH = 200;
 var barPadding = 2;
 
 var svg = d3.select("body")
   .append("svg")
   .attr("width", svgW)
-  .attr("height", svgH);
+  .attr("height", svgH)
+  .attr("stroke", "orange")
+  .attr("stroke-width", 2);
 
 svg.selectAll("rect")
   .data(dataset)
@@ -35,7 +37,10 @@ svg.selectAll("rect")
     return (i * svgW / dataset.length);
   })
   .attr("y", function(d){
-    return 0;
+    console.log("svgH: " + svgH);
+    console.log("d: " + d);
+    
+    return svgH - d;
   })
   .attr("width", svgW / dataset.length - barPadding)
   .attr("height", function(d){
