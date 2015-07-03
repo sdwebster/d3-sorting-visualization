@@ -1,6 +1,6 @@
 
 
-d3.select("body").append("p").text("Woah");
+d3.select("body").append("p").text("Data visualization");
 var dataset = [];
 for (var i=0; i<10; i++){
   dataset.push(Math.random() * 100)
@@ -18,9 +18,19 @@ d3.select("body").selectAll("div")
       return d / 100;
   });
 
+var dataTuples = [];
+
+for (var i=0; i<10; i++){
+  dataset.push({
+    pos: i,
+    val: Math.random() * 100 
+  });
+}
+
 var svgW = 800;
 var svgH = 200;
-var barPadding = 2;
+var barPadding = 5;
+var stroke = 3;
 
 var svg = d3.select("body")
   .append("svg")
@@ -38,11 +48,10 @@ svg.selectAll("rect")
   })
   .attr("y", function(d){
     console.log("svgH: " + svgH);
-    console.log("d: " + d);
-    
-    return svgH - d;
+    console.log("d: " + d.val);
+    return svgH - d.val;
   })
   .attr("width", svgW / dataset.length - barPadding)
   .attr("height", function(d){
-    return d;
-    });
+    return d.val;
+    })
