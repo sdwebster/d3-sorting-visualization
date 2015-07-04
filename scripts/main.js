@@ -22,12 +22,15 @@ d3.select("body").selectAll("div")
 
 var dataTuples = [];
 
-for (var i=0; i<10; i++){
+for (var i=1; i<10; i++){
   dataTuples.push({
     pos: i,
     val: Math.random() * 100 
   });
 }
+
+
+console.log(JSON.stringify(dataTuples));
 
 var svgW = 800;
 var svgH = 200;
@@ -49,7 +52,8 @@ function update(){
     .data(dataTuples)
     .enter()
     .append("rect")
-    .attr("x", function(d){
+    .attr("x", function(d, i){
+      console.log('for pos ', d.pos, 'and index ', i, ', x is ', (d.pos * svgW / dataTuples.length));
       return (d.pos * svgW / dataTuples.length);
     })
     .attr("y", function(d){
@@ -59,8 +63,25 @@ function update(){
     })
     .attr("width", svgW / dataTuples.length - barPadding)
     .attr("height", function(d){
-      return d.val;
+      return d.val * 2;
     })
+
+//  svg.selectAll("rect")
+//    .data("dataTuples")
+//    .transition()
+//    .duration(1000) // 
+//    .attr("x", function(d){
+//      return (d.pos * svgW / dataTuples.length);
+//    })
+//    .attr("y", function(d){
+//      // console.log("svgH: " + svgH);
+//      // console.log("d: " + d.val);
+//       return svgH - d.val;
+//    })
+//    .attr("width", svgW / dataTuples.length - barPadding)
+//    .attr("height", function(d){
+//      return d.val;
+//    })
 }    
 
 update();
@@ -70,10 +91,27 @@ d3.select("p")
       alert ("hahaha!");
     //  var temp = dataTuples[0]["pos"];
     //  dataTuples[0]["pos"] =  dataTuples[0]["pos"];
-      dataTuples[0]["pos"] = 1;
-      dataTuples[1]["pos"] = 0;
-      console.log('first pos: ', dataTuples[0]["pos"]);    
-      update();
+      dataTuples[0]["pos"] = 2;
+      dataTuples[1]["pos"] = 1;
+      console.log('first pos: ', dataTuples[0]["pos"]);
+      // update();
+    svg.selectAll("rect")
+      .data(dataTuples)
+      .transition()
+      .duration(1000) // 
+      .attr("x", function(d, i){
+      console.log('for pos ', d.pos, 'and index ', i, ', x is ', (d.pos * svgW / dataTuples.length));
+        return ((d.pos * svgW + 1) / dataTuples.length);
+      })
+      .attr("y", function(d){
+        // console.log("svgH: " + svgH);
+        // console.log("d: " + d.val);
+         return svgH - d.val;
+      })
+      .attr("width", svgW / dataTuples.length - barPadding)
+      .attr("height", function(d){
+        return d.val;
+      })
     })
 
 
